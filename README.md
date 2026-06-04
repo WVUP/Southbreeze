@@ -13,15 +13,19 @@ See Microsoft's original Northwind sample database for historical reference.
 
 ## Setup
 In the scripts folder, **look for the subfolder for your particular DBMS**.
+
 Get the _southbreeze_database.sql_ script
  - This script will create the tables and seed initial data in the table
 Execute this script on an empty database 
 
 ## Usage
 In the scripts folder, again **look for the subfolder for your particular DBMS**.
+
 Get the _example_queries.sql_ script and open it in a text editor/viewer such as Notepad++ if you are on Windows
+
 Read through the file, the comments describe what each query does.
  - **Note**: None of them modify the data in the database, so you can run them as many times as you want
+
 These example ad-hoc queries demonstrate relational database operations such as:
      - Cartesian product
      - Integrity constraints
@@ -61,35 +65,35 @@ These example ad-hoc queries demonstrate relational database operations such as:
 ```mermaid
 erDiagram
     dbo_Category {
-        datetime2 CreatedAtUtc 
-        nvarchar Description 
         int Id PK 
         bit IsActive 
-        bit IsDeleted 
+        bit IsDeleted
+        timestamp RowVersion 
+        datetime2 CreatedAtUtc
+        datetime2 UpdatedAtUtc 
+        nvarchar Description 
         nvarchar Name UK 
         varbinary Picture 
-        timestamp RowVersion 
-        datetime2 UpdatedAtUtc 
     }
 
     dbo_Customer {
-        nvarchar Address 
-        nvarchar City 
+        int Id PK 
+        bit IsActive 
+        bit IsDeleted
+        timestamp RowVersion 
+        datetime2 CreatedAtUtc
+        datetime2 UpdatedAtUtc
+        nchar CustomerCode UK 
         nvarchar CompanyName 
         nvarchar ContactName 
         nvarchar ContactTitle 
-        nvarchar Country 
-        datetime2 CreatedAtUtc 
-        nchar CustomerCode UK 
-        nvarchar Fax 
-        int Id PK 
-        bit IsActive 
-        bit IsDeleted 
-        nvarchar Phone 
+        nvarchar Address 
+        nvarchar City
         nvarchar PostalCode 
         nvarchar Region 
-        timestamp RowVersion 
-        datetime2 UpdatedAtUtc 
+        nvarchar Country 
+        nvarchar Fax  
+        nvarchar Phone 
     }
 
     dbo_CustomerCustomerDemographic {
@@ -98,40 +102,40 @@ erDiagram
     }
 
     dbo_CustomerDemographic {
-        datetime2 CreatedAtUtc 
-        nchar CustomerDemographicCode UK 
-        nvarchar Description 
         int Id PK 
         bit IsActive 
-        bit IsDeleted 
-        timestamp RowVersion 
+        bit IsDeleted
+        timestamp RowVersion
+        datetime2 CreatedAtUtc
         datetime2 UpdatedAtUtc 
+        nchar CustomerDemographicCode UK 
+        nvarchar Description 
     }
 
     dbo_Employee {
-        nvarchar Address 
-        datetime2 BirthDate 
-        nvarchar City 
-        nvarchar Country 
-        datetime2 CreatedAtUtc 
-        nvarchar Extension 
-        nvarchar FirstName 
-        datetime2 HireDate 
-        nvarchar HomePhone 
-        int Id PK 
+        int Id PK
+        int ReportsToEmployeeId FK 
         bit IsActive 
-        bit IsDeleted 
+        bit IsDeleted
+        timestamp RowVersion 
+        datetime2 CreatedAtUtc 
+        datetime2 UpdatedAtUtc 
+        datetime2 BirthDate 
+        datetime2 HireDate
+        nvarchar Title 
+        nvarchar TitleOfCourtesy 
+        nvarchar FirstName 
         nvarchar LastName 
+        nvarchar Extension 
+        nvarchar Address 
+        nvarchar City 
+        nvarchar Region 
+        nvarchar PostalCode 
+        nvarchar Country 
+        nvarchar HomePhone 
         nvarchar Notes 
         varbinary Photo 
         nvarchar PhotoPath 
-        nvarchar PostalCode 
-        nvarchar Region 
-        int ReportsToEmployeeId FK 
-        timestamp RowVersion 
-        nvarchar Title 
-        nvarchar TitleOfCourtesy 
-        datetime2 UpdatedAtUtc 
     }
 
     dbo_EmployeeTerritory {
@@ -140,120 +144,120 @@ erDiagram
     }
 
     dbo_Product {
+        int Id PK
         int CategoryId FK 
-        datetime2 CreatedAtUtc 
-        int Id PK 
+        int SupplierId FK 
         bit IsActive 
         bit IsDeleted 
+        timestamp RowVersion 
+        datetime2 CreatedAtUtc 
+        datetime2 UpdatedAtUtc 
         nvarchar Name 
         nvarchar QuantityPerUnit 
         smallint ReorderLevel 
-        timestamp RowVersion 
-        int SupplierId FK 
         decimal UnitPrice 
         smallint UnitsInStock 
         smallint UnitsOnOrder 
-        datetime2 UpdatedAtUtc 
     }
 
     dbo_Region {
-        datetime2 CreatedAtUtc 
-        nchar Description 
         int Id PK 
         bit IsActive 
         bit IsDeleted 
         timestamp RowVersion 
+        datetime2 CreatedAtUtc 
         datetime2 UpdatedAtUtc 
+        nchar Description 
     }
 
     dbo_SalesOrder {
-        datetime2 CreatedAtUtc 
+        int Id PK 
+        int SalesOrderStatusId FK 
         int CustomerId FK 
         int EmployeeId FK 
-        decimal Freight 
-        int Id PK 
+        int ShipperId FK 
         bit IsDeleted 
-        datetime2 OrderDate 
-        datetime2 RequiredDate 
         timestamp RowVersion 
-        int SalesOrderStatusId FK 
+        datetime2 CreatedAtUtc 
+        datetime2 UpdatedAtUtc 
+        datetime2 OrderDate 
+        datetime2 RequiredDate
+        datetime2 ShippedDate 
+        decimal Freight 
+        nvarchar ShipName 
         nvarchar ShipAddress 
         nvarchar ShipCity 
         nvarchar ShipCountry 
-        nvarchar ShipName 
         nvarchar ShipPostalCode 
         nvarchar ShipRegion 
-        datetime2 ShippedDate 
-        int ShipperId FK 
-        datetime2 UpdatedAtUtc 
     }
 
     dbo_SalesOrderLine {
-        datetime2 CreatedAtUtc 
-        decimal Discount 
-        int Id PK 
-        bit IsDeleted 
-        int ProductId FK,UK 
-        smallint Quantity 
-        timestamp RowVersion 
+        int Id PK
         int SalesOrderId FK,UK 
+        int ProductId FK,UK 
+        bit IsDeleted 
+        timestamp RowVersion 
+        datetime2 CreatedAtUtc 
+        datetime2 UpdatedAtUtc
+        decimal Discount 
+        smallint Quantity 
         decimal UnitPrice 
-        datetime2 UpdatedAtUtc 
     }
 
     dbo_SalesOrderStatus {
-        datetime2 CreatedAtUtc 
-        nvarchar Description 
         int Id PK 
         bit IsActive 
         bit IsDeleted 
-        nvarchar Name UK 
         timestamp RowVersion 
+        datetime2 CreatedAtUtc 
+        datetime2 UpdatedAtUtc
+        nvarchar Name UK 
+        nvarchar Description 
         int SortOrder 
-        datetime2 UpdatedAtUtc 
     }
 
     dbo_Shipper {
-        nvarchar CompanyName 
-        datetime2 CreatedAtUtc 
         int Id PK 
         bit IsActive 
         bit IsDeleted 
-        nvarchar Phone 
         timestamp RowVersion 
+        datetime2 CreatedAtUtc 
         datetime2 UpdatedAtUtc 
+        nvarchar CompanyName 
+        nvarchar Phone 
     }
 
     dbo_Supplier {
-        nvarchar Address 
-        nvarchar City 
-        nvarchar CompanyName 
-        nvarchar ContactName 
-        nvarchar ContactTitle 
-        nvarchar Country 
-        datetime2 CreatedAtUtc 
-        nvarchar Fax 
-        nvarchar HomePage 
         int Id PK 
         bit IsActive 
         bit IsDeleted 
-        nvarchar Phone 
-        nvarchar PostalCode 
-        nvarchar Region 
         timestamp RowVersion 
+        datetime2 CreatedAtUtc 
         datetime2 UpdatedAtUtc 
+        nvarchar CompanyName 
+        nvarchar ContactTitle 
+        nvarchar ContactName 
+        nvarchar HomePage 
+        nvarchar Phone 
+        nvarchar Fax 
+        nvarchar Address 
+        nvarchar City
+        nvarchar Region 
+        nvarchar Country 
+        nvarchar PostalCode 
     }
 
     dbo_Territory {
-        datetime2 CreatedAtUtc 
-        nchar Description 
-        int Id PK 
+        int Id PK
+        int RegionId FK 
         bit IsActive 
         bit IsDeleted 
-        int RegionId FK 
         timestamp RowVersion 
+        datetime2 CreatedAtUtc 
+        datetime2 UpdatedAtUtc
         nvarchar TerritoryCode UK 
-        datetime2 UpdatedAtUtc 
+        nchar Description 
     }
 
     dbo_Product }o--|| dbo_Category : "CategoryId"
