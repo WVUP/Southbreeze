@@ -15,7 +15,10 @@ See Microsoft's original Northwind sample database for historical reference.
 In the scripts folder, **look for the subfolder for your particular DBMS**.
 
 Get the _southbreeze_database.sql_ script
- - This script will create the tables and seed initial data in the table
+ - This script will
+   - Delete the tables if they currently exist
+   - Create the tables
+   - Seed initial data in the table
 
 Execute this script on an empty database 
 
